@@ -2,6 +2,7 @@
 
 namespace {
 
+    use ArchiPro\Silverstripe\EventDispatcher\Service\EventService;
     use SilverStripe\CMS\Controllers\ContentController;
 
     /**
@@ -32,6 +33,8 @@ namespace {
             parent::init();
             // You can include any CSS or JS required by your project here.
             // See: https://docs.silverstripe.org/en/developer_guides/templates/requirements/
+
+            EventService::singleton()->dispatch(new MyCustomEvent());
         }
     }
 }

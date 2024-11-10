@@ -12,11 +12,10 @@ class MemberListenerLoader implements ListenerLoaderInterface
 {
     public function loadListeners(ListenerProvider $provider): void
     {
-        error_log('Loading listeners');
         DataObjectEventListener::create(
             Closure::fromCallable([self::class, 'onMemberCreated']),
             [Member::class],
-            [Operation::CREATE, Operation::UPDATE]
+            [Operation::CREATE]
         )->selfRegister($provider);
     }
 
@@ -24,7 +23,6 @@ class MemberListenerLoader implements ListenerLoaderInterface
     {
         $member = $event->getObject();
         error_log('Member created: ' . $member->ID);
-        sleep(10);
         Email::create()
             ->setTo($member->Email)
             ->setSubject('Welcome to our site')

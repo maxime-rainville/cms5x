@@ -29,8 +29,8 @@ try {
     $response->output();
 } finally {
     fastcgi_finish_request();
-    echo "finished request\n";
     $controller = new Controller();
+    $controller->setRequest($request);
     $controller->pushCurrent();
     EventLoop::run();
 }

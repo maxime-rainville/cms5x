@@ -22,4 +22,7 @@ SilverStripe\Security\Member:
 ArchiPro\Silverstripe\EventDispatcher\Service\EventService:
   loaders:
     - MemberListenerLoader
+  listeners:
+    MyCustomEvent:
+      - ['MyCustomEventListener', 'handleEvent']
 
