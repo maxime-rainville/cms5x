@@ -28,7 +28,9 @@ try {
     $response = $app->handle($request);
     $response->output();
 } finally {
+    session_write_close();
     fastcgi_finish_request();
+
     $controller = new Controller();
     $controller->setRequest($request);
     $controller->pushCurrent();

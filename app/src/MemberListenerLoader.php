@@ -5,40 +5,33 @@ use ArchiPro\Silverstripe\EventDispatcher\Contract\ListenerLoaderInterface;
 use ArchiPro\Silverstripe\EventDispatcher\Event\DataObjectEvent;
 use ArchiPro\Silverstripe\EventDispatcher\Event\Operation;
 use ArchiPro\Silverstripe\EventDispatcher\Listener\DataObjectEventListener;
-use ArchiPro\Silverstripe\EventDispatcher\Service\EventService;
-use SilverStripe\Control\Director;
 use SilverStripe\Control\Email\Email;
-use SilverStripe\Core\Injector\Injector;
+
 use SilverStripe\Security\Member;
-use SilverStripe\Security\Security;
+
+
+use function Amp\delay;
 
 class MemberListenerLoader implements ListenerLoaderInterface
 {
     public function loadListeners(ListenerProvider $provider): void
     {
         DataObjectEventListener::create(
-            Closure::fromCallable([self::class, 'onMemberCreated']),
+            Closure::fromCallable([$this, 'onMemberCreated']),
             [Member::class],
+            [Operation::CREATE]
         )->selfRegister($provider);
     }
 
-    public static function onMemberCreated(DataObjectEvent $event): void
+    public function onMemberCreated(DataObjectEvent $event): void
     {
         $member = $event->getObject();
-        error_log('Member created: ' . $member->ID);
-
-        $currentUser = Security::getCurrentUser();
-        error_log('Current user is ' . $currentUser->ID . ' ' . $currentUser->Email);
-
-        EventService::singleton()->dispatch(new MyCustomEvent());
-
-        error_log(Director::absoluteURL('/'));
-
+        delay(10);
         Email::create()
             ->setTo($member->Email)
             ->setSubject('Welcome to our site')
             ->setFrom('no-reply@example.com')
-            ->setBody('Welcome to our site')
+            ->setBody('Welcome to our site, ' . $member->FirstName)
             ->send();
     }
 }
