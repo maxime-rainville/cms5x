@@ -1,0 +1,10 @@
+App\Model\Team:
+  team1:
+    Title: "Test Team"
+
+App\Model\Player:
+  player1:
+    FirstName: "John"
+    LastName: "Doe"
+    Position: "Forward"
+    Team: =>App\Model\Team.team1

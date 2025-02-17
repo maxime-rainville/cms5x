@@ -2,8 +2,10 @@
 
 namespace {
 
+    use App\Model\Player;
     use ArchiPro\Silverstripe\EventDispatcher\Service\EventService;
     use SilverStripe\CMS\Controllers\ContentController;
+    use SilverStripe\Versioned\Versioned;
 
     /**
      * @template T of Page
@@ -34,7 +36,9 @@ namespace {
             // You can include any CSS or JS required by your project here.
             // See: https://docs.silverstripe.org/en/developer_guides/templates/requirements/
 
-            EventService::singleton()->dispatch(new MyCustomEvent());
+            Versioned::set_stage('Live');
+            echo Player::get()->Count();
+            die();
         }
     }
 }

@@ -1,28 +1,12 @@
----
-Name: myproject
----
-SilverStripe\Core\Manifest\ModuleManifest:
-  project: app
 
-# UTF8MB4 has limited support in older MySQL versions.
-# Remove this configuration if you experience issues.
----
-Name: myproject-database
----
-SilverStripe\ORM\Connect\MySQLDatabase:
-  connection_charset: utf8mb4
-  connection_collation: utf8mb4_unicode_ci
-  charset: utf8mb4
-  collation: utf8mb4_unicode_ci
+App\Admin\PeopleAdmin:
+  url_segment: maxime-demo
 
-SilverStripe\Security\Member:
+
+App\Model\Person:
   extensions:
-    - ArchiPro\Silverstripe\EventDispatcher\Extension\EventDispatchExtension
+    - SilverStripe\Versioned\Versioned
 
-ArchiPro\Silverstripe\EventDispatcher\Service\EventService:
-  loaders:
-    - MemberListenerLoader
-  listeners:
-    MyCustomEvent:
-      - ['MyCustomEventListener', 'handleEvent']
-
+# SilverStripe\Core\Injector\Injector:
+#   App\Service\PlayerStatsServiceInterface:
+#     class: App\Service\PlayerService

@@ -9,7 +9,8 @@
         "silverstripe/recipe-cms": "5.x-dev",
         "silverstripe-themes/simple": "3.x-dev",
         "silverstripe/login-forms": "5.x-dev",
-        "archipro/silverstripe-revolt-event-dispatcher": "dev-master"
+        "archipro/silverstripe-revolt-event-dispatcher": "dev-master",
+        "silverstripe/frameworktest": "1.x-dev"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.6",
